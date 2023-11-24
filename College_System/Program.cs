@@ -9,36 +9,26 @@ using System.Threading.Tasks;
 
 namespace College_System
 {
-    internal partial class Program
+    internal class Program
     {
         static void Main()
         {
-
-            Console.WriteLine("Many to many");
-
-            var dbContext = new InformationContext(new DbContextOptionsBuilder<InformationContext>()
-                .UseSqlServer($"Server=DESKTOP-STN7AQ8\\SQLEXPRESS;Database=StudentInformationSystem;Trusted_Connection=True;TrustServerCertificate=True;").Options);
-
-            dbContext.Database.EnsureDeleted();
-            dbContext.Database.EnsureCreated();
-            ////////////// Task 1 /////////////
-            TaskOne.Task1();
-            //////////////// TASK 2 ////////////////
-            //TaskTwo.Task2();
-            //// Task 3 //
-            //TaskThree.Task3();
-            /////// Task 4 /////
-            //TaskFour.Task4();
-            /////// Task 5 /////
-            //TaskFive.Task5();
-            //// Task 6 //
-            //TaskSix.Task6();
-            //// Task 7 //
-            //TaskSeven.Task7();
-            //// Task 8 //
-            //TaskEight.Task8();
+            try
+            {
+                Console.WriteLine("Information system");
+                // Create a new instance of the 'InformationContext' using SQL Server and specific options
+                var dbContext = new InformationContext(new DbContextOptionsBuilder<InformationContext>()
+                    .UseSqlServer($"Server=PETSIA78\\SQLEXPRESS;Database=StudentInformationSystem;Trusted_Connection=True;TrustServerCertificate=True;").Options);
+                // Ensure the database is created (or deleted if needed) before proceeding
+                dbContext.Database.EnsureDeleted();
+                dbContext.Database.EnsureCreated();
+                // Call the menu method
+                List.MenuList(dbContext);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
 }
-
-

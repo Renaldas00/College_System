@@ -1,5 +1,6 @@
 ﻿namespace College_System.Database.Models
 {
+    // StudentLecture represents the association between student and lecture classes db tables.
     public class StudentLecture
     {
         public int StudentId { get; set; }
