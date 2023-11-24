@@ -8,7 +8,8 @@ namespace College_System
 {
     public class List
     {
-        public static void MenuList(InformationContext dbContext) {
+        public static void MenuList(InformationContext dbContext)
+        {
 
             // List of methods
             List<Action<InformationContext>> tasks = new List<Action<InformationContext>>
@@ -35,7 +36,6 @@ namespace College_System
                     "Atvaizduoti visus departamento studentus.",
                     "Atvaizduoti visas departamento paskaitas.",
                     "Atvaizduoti visas paskaitas pagal studentą.",
-                    "Exit: Exit the program"
                 };
 
                 Console.WriteLine("Choose an option:");

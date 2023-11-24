@@ -7,25 +7,27 @@ using College_System.Methods;
 
 namespace College_System
 {
-        public class TaskTwo
+    public class TaskTwo
+    {
+        public static void Task2(InformationContext dbContext)
         {
-            public static void Task2(InformationContext dbContext)
+            // Display existing departments
+            Console.WriteLine("Existing Departments:");
+            var existingDepartments = dbContext.Departments.ToList();
+            foreach (var department in existingDepartments)
             {
-                // Display existing departments
-                Console.WriteLine("Existing Departments:");
-                var existingDepartments = dbContext.Departments.ToList();
-                foreach (var department in existingDepartments)
-                {
-                    Console.WriteLine($"{department.DepartmentId}. {department.DepartmentName}");
-                }
+                Console.WriteLine($"{department.DepartmentId}. {department.DepartmentName}");
+            }
 
-                // Select a department
-                Console.Write("Select a department by entering its ID: ");
-                if (int.TryParse(Console.ReadLine(), out int selectedDepartmentId))
-                {
-                    var selectedDepartment = existingDepartments.FirstOrDefault(d => d.DepartmentId == selectedDepartmentId);
+            // Select a department
+            Console.Write("Select a department by entering its ID: ");
+            if (int.TryParse(Console.ReadLine(), out int selectedDepartmentId))
+            {
+                var selectedDepartment = existingDepartments.FirstOrDefault(d => d.DepartmentId == selectedDepartmentId);
 
-                    if (selectedDepartment != null)
+                if (selectedDepartment != null)
+                {
+                    do
                     {
                         // Add a new student
                         Student student = StudenCreation.CreateStudent(dbContext);
@@ -47,25 +49,29 @@ namespace College_System
                             Lecture = lecture
                         });
 
-                        // Save changes to the database
-                        dbContext.SaveChanges();
-
                         Console.WriteLine("New student, lecture, and association added to the selected department successfully.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Department not found.");
-                    }
+
+                        Console.Write("Do you want to add another student and lecture (Y/N)? Press 'Q' to finish: ");
+                    } while (Console.ReadLine()?.Trim().ToUpper() == "Y");
+
+                    // Save
+                    dbContext.SaveChanges();
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Enter a valid department ID.");
+                    Console.WriteLine("Department not found.");
                 }
             }
+            else
+            {
+                Console.WriteLine("Invalid input. Enter a valid department ID.");
+            }
+
         }
+    }
 }
 
-        
-    
+
+
 
 
